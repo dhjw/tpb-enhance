@@ -1,0 +1,16 @@
+{
+	"name": "Hide Porn on The Pirate Bay",
+	"manifest_version": 2,
+	"version": "1.0.0",
+	"icons": {
+		"128": "tpb.png"
+	},
+	"permissions": [
+		"https://*.thepiratebay.org/*"
+	],
+	"content_scripts": [{
+	"matches": ["https://*.thepiratebay.org/*"],
+	"js": ["tpb.js"],
+	"run_at": "document_end"
+	}]
+}
