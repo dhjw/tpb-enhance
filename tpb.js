@@ -26,6 +26,19 @@ function afterDOMLoaded(){
 				rn.parentNode.insertBefore(el,rn.nextSibling);
 			}
 		}
+		// add google search for tv shows
+		if(x[i].innerHTML.indexOf('TV shows')!==-1){
+			var txt=x[i].nextSibling.nextSibling.children[0].children[0].innerHTML.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
+			var re=/\sS[0-9]{1,3}E[0-9]{1,3}\s/ig;
+			var pos=txt.search(re);
+			if(pos!==-1){
+				txt=txt.substr(0,pos).trim();
+				var el=document.createElement('span');
+				el.innerHTML='<a target="_blank" href="https://google.com/search?q='+encodeURIComponent(txt+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com -site:m.imdb.com')+'"><img style="margin:0" height="12" width="12" src="data:image/png;base64,'+gicon+'" /></a>';
+				rn=x[i].nextSibling.nextSibling.children[0];
+				rn.parentNode.insertBefore(el,rn.nextSibling);
+			}
+		}
 	}
 	// hide porn search option
 	if(document.getElementById('porn')) document.getElementById('porn').parentElement.remove();
