@@ -1,4 +1,4 @@
-Enhance The Pirate Bay by hiding porn and adding search links
+Enhance The Pirate Bay by hiding porn and adding search links to movies
 
 1. Clone the repo. `git clone https://github.com/dhjw/tpb-enhance`
 2. Browse to `chrome://extensions`
