@@ -27,8 +27,8 @@ function afterDOMLoaded(){
 			if(pos!==-1){
 				if(movie) txt=txt.substr(0,pos+5).trim(); else if(tv) txt=txt.substr(0,pos).trim();
 				var el=document.createElement('span');
-				el.innerHTML='<a target="_blank" href="https://google.com/search?q='+encodeURIComponent(txt+(tv?' TV':'')+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
-				el.innerHTML+=' <a href="https://thepiratebay.org/search/'+encodeURIComponent(txt)+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
+				el.innerHTML='<a target="_blank" title="Search Google" href="https://google.com/search?q='+encodeURIComponent(txt+(tv?' TV':'')+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
+				el.innerHTML+=' <a title="Search TPB" href="https://thepiratebay.org/search/'+encodeURIComponent(txt)+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
 				rn=x[i].nextSibling.nextSibling.children[0];
 				rn.parentNode.insertBefore(el,rn.nextSibling);
 			}
