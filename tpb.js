@@ -11,10 +11,14 @@ function afterDOMLoaded(){
 		if(x[i].innerHTML.indexOf('Porn')!==-1){
 			x[i].parentElement.style.display='none';
 			cnt++;
+			continue;
 		}
 		// add google search for movies
 		if(x[i].innerHTML.indexOf('Movies')!==-1){
-			var txt=x[i].nextSibling.nextSibling.children[0].children[0].innerHTML.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
+			var txt=x[i].nextSibling.nextSibling.children[0].children[0].innerHTML;
+			if(txt.indexOf('18+ ')===0) txt=txt.substr(4);
+			txt=txt.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
+			console.log(txt);
 			var re=/\s[0-9]{4}\s/g;
 			var pos=-1;
 			while ((match = re.exec(txt)) != null) pos=match.index;
@@ -34,7 +38,7 @@ function afterDOMLoaded(){
 			if(pos!==-1){
 				txt=txt.substr(0,pos).trim();
 				var el=document.createElement('span');
-				el.innerHTML='<a target="_blank" href="https://google.com/search?q='+encodeURIComponent(txt+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com -site:m.imdb.com')+'"><img style="margin:0" height="12" width="12" src="data:image/png;base64,'+gicon+'" /></a>';
+				el.innerHTML='<a target="_blank" href="https://google.com/search?q='+encodeURIComponent(txt+' TV site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com -site:m.imdb.com')+'"><img style="margin:0" height="12" width="12" src="data:image/png;base64,'+gicon+'" /></a>';
 				rn=x[i].nextSibling.nextSibling.children[0];
 				rn.parentNode.insertBefore(el,rn.nextSibling);
 			}
