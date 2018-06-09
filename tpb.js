@@ -14,35 +14,21 @@ function afterDOMLoaded(){
 			cnt++;
 			continue;
 		}
-		// add google search for movies
-		if(x[i].innerHTML.indexOf('Movies')!==-1){
+		// add google search for movies & tv
+		if(x[i].innerHTML.indexOf('Movies')!==-1) var movie=1; else var movie='';
+		if(x[i].innerHTML.indexOf('TV shows')!==-1) var tv=1; else var tv='';
+		if(movie||tv){
 			var txt=x[i].nextSibling.nextSibling.children[0].children[0].innerHTML;
-			if(txt.indexOf('18+ ')===0) txt=txt.substr(4);
+			if(txt.indexOf('18+ ')===0) txt=txt.substr(4); // for rDX torrents
 			txt=txt.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
-			console.log(txt);
-			var re=/\s[0-9]{4}\s/g;
+			if(movie) var re=/\s[0-9]{4}\s/g; else if(tv) var re=/\sS[0-9]{1,3}E[0-9]{1,3}\s/ig;
 			var pos=-1;
-			while ((match = re.exec(txt)) != null) pos=match.index;
+			while((match=re.exec(txt))!==null) pos=match.index;
 			if(pos!==-1){
-				txt=txt.substr(0,pos+5).trim();
+				if(movie) txt=txt.substr(0,pos+5).trim(); else if(tv) txt=txt.substr(0,pos).trim();
 				var el=document.createElement('span');
-				el.innerHTML='<a target="_blank" href="https://google.com/search?q='+encodeURIComponent(txt+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
-				el.innerHTML+=' <a href="https://thepiratebay.org/search/'+encodeURIComponent(txt).toLowerCase()+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
-				//https://thepiratebay.org/search/hooked%202017/0/99/0
-				rn=x[i].nextSibling.nextSibling.children[0];
-				rn.parentNode.insertBefore(el,rn.nextSibling);
-			}
-		}
-		// add google search for tv shows
-		if(x[i].innerHTML.indexOf('TV shows')!==-1){
-			var txt=x[i].nextSibling.nextSibling.children[0].children[0].innerHTML.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
-			var re=/\sS[0-9]{1,3}E[0-9]{1,3}\s/ig;
-			var pos=txt.search(re);
-			if(pos!==-1){
-				txt=txt.substr(0,pos).trim();
-				var el=document.createElement('span');
-				el.innerHTML='<a target="_blank" href="https://google.com/search?q='+encodeURIComponent(txt+' TV site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com -site:m.imdb.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
-				el.innerHTML+=' <a href="https://thepiratebay.org/search/'+encodeURIComponent(txt).toLowerCase()+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
+				el.innerHTML='<a target="_blank" href="https://google.com/search?q='+encodeURIComponent(txt+(tv?' TV':'')+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
+				el.innerHTML+=' <a href="https://thepiratebay.org/search/'+encodeURIComponent(txt)+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
 				rn=x[i].nextSibling.nextSibling.children[0];
 				rn.parentNode.insertBefore(el,rn.nextSibling);
 			}
