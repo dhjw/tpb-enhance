@@ -1,6 +1,6 @@
 {
 	"name": "Enhance The Pirate Bay",
-	"description": "Hide porn and add google links to movies & TV shows",
+	"description": "Hide porn and add search links to movies & TV shows",
 	"manifest_version": 2,
 	"version": "1.0.0",
 	"icons": {
