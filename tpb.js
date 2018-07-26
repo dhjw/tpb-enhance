@@ -18,6 +18,8 @@ function afterDOMLoaded(){
 		if(x[i].innerHTML.indexOf('Movies')!==-1) var movie=1; else var movie='';
 		if(x[i].innerHTML.indexOf('TV shows')!==-1) var tv=1; else var tv='';
 		if(movie||tv){
+			//if(movie) x[i].nextSibling.nextSibling.children[0].children[0].style.color='darkred';
+			if(movie) x[i].parentElement.style.background="#dedeff";
 			var txt=x[i].nextSibling.nextSibling.children[0].children[0].innerHTML;
 			if(txt.indexOf('18+ ')===0) txt=txt.substr(4); // for rDX torrents
 			txt=txt.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
@@ -28,7 +30,7 @@ function afterDOMLoaded(){
 				if(movie) txt=txt.substr(0,pos+5).trim(); else if(tv) txt=txt.substr(0,pos).trim();
 				var el=document.createElement('span');
 				el.innerHTML='<a target="_blank" title="Search Google" href="https://google.com/search?q='+encodeURIComponent(txt+(tv?' TV':'')+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
-				el.innerHTML+=' <a title="Search TPB" href="https://thepiratebay.org/search/'+encodeURIComponent(txt)+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
+				el.innerHTML+=' <a title="Search TPB" href="/search/'+encodeURIComponent(txt)+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
 				rn=x[i].nextSibling.nextSibling.children[0];
 				rn.parentNode.insertBefore(el,rn.nextSibling);
 			}
