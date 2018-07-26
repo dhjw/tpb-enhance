@@ -7,10 +7,11 @@
 		"128": "tpb.png"
 	},
 	"permissions": [
-		"https://*.thepiratebay.org/*"
+		"https://*.thepiratebay.org/*",
+		"http://uj3wazyk5u4hnvtk.onion"
 	],
 	"content_scripts": [{
-	"matches": ["https://*.thepiratebay.org/*"],
+	"matches": ["https://*.thepiratebay.org/*","http://uj3wazyk5u4hnvtk.onion/*"],
 	"js": ["tpb.js"],
 	"run_at": "document_end"
 	}]
