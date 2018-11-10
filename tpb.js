@@ -4,6 +4,8 @@ var tpbicon='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9A
 
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',afterDOMLoaded); else afterDOMLoaded();
 function afterDOMLoaded(){
+	// auto-reload on maintenance
+	if(document.body.innerHTML.indexOf('Database maintenance, please check back in 10 minutes')!==-1) location.reload();
 	// listing rows
 	var x=document.getElementsByClassName('vertTh');
 	var cnt=0;
