@@ -6,6 +6,8 @@ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded'
 function afterDOMLoaded(){
 	// auto-reload on maintenance
 	if(document.body.innerHTML.indexOf('Database maintenance, please check back in 10 minutes')!==-1) location.reload();
+	// auto-reload on cloudflare error
+	if(document.querySelector('#cf-error-details')) location.reload();
 	// listing rows
 	var x=document.getElementsByClassName('vertTh');
 	var cnt=0;
