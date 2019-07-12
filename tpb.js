@@ -27,17 +27,14 @@ function afterDOMLoaded(){
 			var txt=x[i].nextSibling.nextSibling.children[0].children[0].innerHTML;
 			if(txt.indexOf('18+ ')===0) txt=txt.substr(4); // for rDX torrents
 			txt=txt.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
-			if(movie) var re=/\s[0-9]{4}\s/g; else if(tv) var re=/\sS[0-9]{1,3}E[0-9]{1,3}\s/ig;
-			var pos=-1;
-			while((match=re.exec(txt))!==null) pos=match.index;
-			if(pos!==-1){
-				if(movie) txt=txt.substr(0,pos+5).trim(); else if(tv) txt=txt.substr(0,pos).trim();
-				var el=document.createElement('span');
-				el.innerHTML='<a target="_blank" title="Search Google" href="https://google.com/search?q='+encodeURIComponent(txt+(tv?' TV':'')+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
-				el.innerHTML+=' <a title="Search TPB" href="/search/'+encodeURIComponent(txt)+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
-				rn=x[i].nextSibling.nextSibling.children[0];
-				rn.parentNode.insertBefore(el,rn.nextSibling);
-			}
+			var tv=0, m=/(.*)(?:\s|\.)(?:S[0-9]{1,3}.?E[0-9]{1,3}|[0-9]{4}.?[0-9]{2}.?[0-9]{2})(?:\s|\.)/ig.exec(txt); // S01E01 or 2019.01.02
+			if(m && m[1]) tv=1; else var m=/(.*(?:\s|\.)[0-9]{4})(?:\s|\.)/g.exec(txt); // movie
+			if(m && m[1]) m[1]=m[1].replace(/\./g,' '); else continue;
+			var el=document.createElement('span');
+			el.innerHTML='<a target="_blank" title="Search Google" href="https://google.com/search?q='+encodeURIComponent(m[1]+(tv?' TV':'')+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
+			el.innerHTML+=' <a title="Search TPB" href="/search/'+encodeURIComponent(m[1])+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
+			rn=x[i].nextSibling.nextSibling.children[0];
+			rn.parentNode.insertBefore(el,rn.nextSibling);
 		}
 	}
 	// hide porn search option
