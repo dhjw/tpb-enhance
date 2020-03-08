@@ -8,10 +8,10 @@
 	},
 	"permissions": [
 		"https://*.thepiratebay.org/*",
-		"http://uj3wazyk5u4hnvtk.onion"
+		"http://piratebayztemzmv.onion"
 	],
 	"content_scripts": [{
-	"matches": ["https://*.thepiratebay.org/*","http://uj3wazyk5u4hnvtk.onion/*"],
+	"matches": ["https://*.thepiratebay.org/*","http://piratebayztemzmv.onion/*"],
 	"js": ["tpb.js"],
 	"run_at": "document_end"
 	}]
