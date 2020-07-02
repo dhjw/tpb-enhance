@@ -9,32 +9,31 @@ function afterDOMLoaded(){
 	// auto-reload on cloudflare error
 	if(document.querySelector('#cf-error-details')) location.reload();
 	// listing rows
-	var x=document.getElementsByClassName('vertTh');
+	var x=document.getElementsByClassName('list-entry');
 	var cnt=0;
 	for(let i=0;i<x.length;i++){
 		// hide porn rows
-		if(x[i].innerHTML.indexOf('Porn')!==-1){
-			x[i].parentElement.style.display='none';
+		var t=x[i].getElementsByClassName('item-type')[0].innerHTML;
+		if(t.indexOf('Porn')!==-1){
+			x[i].style.display='none';
 			cnt++;
 			continue;
 		}
 		// add google search for movies & tv
-		if(x[i].innerHTML.indexOf('Movies')!==-1) var movie=1; else var movie='';
-		if(x[i].innerHTML.indexOf('TV shows')!==-1) var tv=1; else var tv='';
+		if(t.indexOf('Movies')!==-1) var movie=1; else var movie='';
+		if(t.indexOf('TV shows')!==-1) var tv=1; else var tv='';
 		if(movie||tv){
-			//if(movie) x[i].nextSibling.nextSibling.children[0].children[0].style.color='darkred';
-			if(movie) x[i].parentElement.style.background="#dedeff";
-			var txt=x[i].nextSibling.nextSibling.children[0].children[0].innerHTML;
-			if(txt.indexOf('18+ ')===0) txt=txt.substr(4); // for rDX torrents
-			txt=txt.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
-			var tv=0, m=/(.*)(?:\s|\.)(?:S[0-9]{1,3}.?E[0-9]{1,3}|[0-9]{4}.?[0-9]{2}.?[0-9]{2})(?:\s|\.)/ig.exec(txt); // S01E01 or 2019.01.02
-			if(m && m[1]) tv=1; else var m=/(.*(?:\s|\.)[0-9]{4})(?:\s|\.)/g.exec(txt); // movie
+			if(movie) x[i].style.background="#dedeff";
+			var n=x[i].getElementsByClassName('item-name')[0].getElementsByTagName('a')[0].innerHTML;
+			if(n.indexOf('18+ ')===0) n=n.substr(4); // for rDX torrents
+			n=n.replace(/[\W_]+/g,' ').replace(/\s+/,' ').trim()+' ';
+			var tv=0, m=/(.*)(?:\s|\.)(?:S[0-9]{1,3}.?E[0-9]{1,3}|[0-9]{4}.?[0-9]{2}.?[0-9]{2})(?:\s|\.)/ig.exec(n); // S01E01 or 2019.01.02
+			if(m && m[1]) tv=1; else var m=/(.*(?:\s|\.)[0-9]{4})(?:\s|\.)/g.exec(n); // movie
 			if(m && m[1]) m[1]=m[1].replace(/\./g,' '); else continue;
 			var el=document.createElement('span');
-			el.innerHTML='<a target="_blank" title="Search Google" href="https://google.com/search?q='+encodeURIComponent(m[1]+(tv?' TV':'')+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
-			el.innerHTML+=' <a title="Search TPB" href="/search/'+encodeURIComponent(m[1])+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
-			rn=x[i].nextSibling.nextSibling.children[0];
-			rn.parentNode.insertBefore(el,rn.nextSibling);
+			el.innerHTML='&nbsp;<a target="_blank" title="Search Google" href="https://google.com/search?q='+encodeURIComponent(m[1]+(tv?' TV':'')+' site:imdb.com OR site:rottentomatoes.com OR site:wikipedia.com')+'"><img style="margin:0" height="12" width="12" src="'+gicon+'" /></a>';
+			el.innerHTML+='&nbsp;<a title="Search TPB" href="/search/'+encodeURIComponent(m[1])+'/0/99/0"><img style="margin:0" height="13" width="13" src="'+tpbicon+'" /></a>';
+			x[i].getElementsByClassName('item-icons')[0].appendChild(el);
 		}
 	}
 	// hide porn search option
