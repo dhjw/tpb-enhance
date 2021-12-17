@@ -2,13 +2,13 @@
 	"name": "Enhance The Pirate Bay",
 	"description": "Hide porn and add search links to movies & TV shows",
 	"manifest_version": 2,
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"icons": {
 		"128": "tpb.png"
 	},
 	"permissions": [
 		"https://*.thepiratebay.org/*",
-		"http://piratebayztemzmv.onion"
+		"http://piratebayztemzmv.onion/*"
 	],
 	"content_scripts": [{
 	"matches": ["https://*.thepiratebay.org/*","http://piratebayztemzmv.onion/*"],
