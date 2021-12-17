@@ -21,7 +21,7 @@ function afterDOMLoaded(){
 		}
 		// add google search for movies & tv
 		if(t.indexOf('Movies')!==-1) var movie=1; else var movie='';
-		if(t.indexOf('TV shows')!==-1) var tv=1; else var tv='';
+		if(t.indexOf('TV-Shows')!==-1) var tv=1; else var tv='';
 		if(movie||tv){
 			if(movie) x[i].style.background="#dedeff";
 			var n=x[i].getElementsByClassName('item-name')[0].getElementsByTagName('a')[0].innerHTML;
